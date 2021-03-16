@@ -29,7 +29,23 @@ function dispatch($action)
 {
     global $routes;
     $action = trim($action, '/');
-    $callback = $routes[$action];
 
-    echo call_user_func($callback);
+    $callback = null;
+    $params = [];
+    foreach ($routes as $route => $handler) {
+        if(preg_match("%^{$route}$%", $action, $matches) === 1) {
+            $callback = $handler;
+            unset($matches[0]);
+            $params = $matches;
+            break;
+        }
+    }
+
+    if(!$callback || !is_callable($callback)) {
+        http_response_code(404);
+        echo "404 - Not found";
+        exit;
+    }
+
+    echo call_user_func($callback, ...$params);
 }

@@ -10,5 +10,13 @@ route('/about', function () {
     return "Hello form the about route";
 });
 
+route('/company/(.+)/?', function($companyName){
+    return "The company is {$companyName}";
+});
+
+route('/users/(.+)/city/(.+)', function($username, $city){
+    return "{$username} lives in {$city}";
+});
+
 $action = $_SERVER['REQUEST_URI'];
 dispatch($action);
