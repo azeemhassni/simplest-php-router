@@ -10,11 +10,11 @@ route('/about', function () {
     return "Hello form the about route";
 });
 
-route('/company/(.+)/?', function($companyName){
+route('/company/{companyName}/?', function($companyName){
     return "The company is {$companyName}";
 });
 
-route('/users/(.+)/city/(.+)', function($username, $city){
+route('/users/{username}/city/{city}', function($username, $city){
     return "{$username} lives in {$city}";
 });
 

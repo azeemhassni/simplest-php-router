@@ -17,6 +17,8 @@ function route($action, Closure $callback)
 {
     global $routes;
     $action = trim($action, '/');
+    $action = preg_replace('/{[^}]+}/', '(.+)', $action);
+
     $routes[$action] = $callback;
 }
 
